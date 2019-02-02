@@ -1,0 +1,17 @@
+
+[Desktop Entry]
+Version=1.0
+Name=KTorrent
+Name[ru]=KTorrent
+GenericName=BitTorrent Client
+X-GNOME-FullName=KTorrent BitTorrent Client
+Comment=Download and share files over BitTorrent
+TryExec=ktorrent
+Exec=ktorrent %U
+Icon=ktorrent.png
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;P2P;GTK
+StartupNotify=true
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+X-XFCE-Source=file:///usr/share/applications/ktorrent.desktop

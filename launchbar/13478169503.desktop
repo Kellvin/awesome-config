@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=clementine
+Comment=
+Icon=application-x-clementine.png
+Exec=clementine
+Path=
+Terminal=false
+StartupNotify=false

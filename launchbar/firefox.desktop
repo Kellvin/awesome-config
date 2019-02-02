@@ -1,0 +1,20 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Firefox
+Name[ru]=Firefox
+Comment=Browse the World Wide Web
+Comment[ru]=Обозреватель Всемирной Паутины
+GenericName=Web Browser
+GenericName[ru]=Интернет-браузер
+X-GNOME-FullName=Firefox Web Browser
+X-GNOME-FullName[ru]=Интернет-браузер Firefox
+Exec=firefox
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=firefox.png
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=Firefox-bin
+StartupNotify=true
+X-XFCE-Source=file:///usr/share/applications/iceweasel.desktop

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=XTerm
+Exec=sakura
+Icon=xfce-terminal.png
+Comment=standard terminal emulator for the X window system
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=System;TerminalEmulator;
+X-Desktop-File-Install-Version=0.18
+X-XFCE-Source=file:///usr/share/applications/debian-xterm.desktop
+Path=
+StartupNotify=false

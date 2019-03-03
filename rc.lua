@@ -168,7 +168,7 @@ calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 mysystray = widget({ type = "systray" })
 
 weatherwidget = widget({ type = "textbox" })
-weather.addWeather(weatherwidget, "saint-petersburg", 3600)
+weather.addWeather(weatherwidget, "Saint Petersburg", 3600)
 
 -- Create a wibox for each screen and add it
 mywibox = {}

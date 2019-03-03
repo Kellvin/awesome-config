@@ -21,7 +21,6 @@ function getWeather(city, apikey)
   
 --  local response = json.decode('{"coord":{"lon":30.32,"lat":59.94},"weather":[{"id":802,"main":"Clouds","description":"слегка облачно","icon":"03n"}],"base":"stations","main":{"temp":266.34,"pressure":997,"humidity":85,"temp_min":264.15,"temp_max":267.59},"visibility":10000,"wind":{"speed":2,"deg":200},"clouds":{"all":40},"dt":1551639963,"sys":{"type":1,"id":8926,"message":0.0055,"country":"RU","sunrise":1551588608,"sunset":1551627128},"id":498817,"name":"Saint Petersburg","cod":200}') or ""
  
-  local parse = awful.util.pread("curl connect-timeout 1 -fsm 3 -L http://pogoda.yandex.ru/"..city.."/")
 	weatherbase[city].weather = {
 		["cityname"] = city or "Санкт-Петербург",
 		["wthtype"]	 = response["weather"][1]["description"] or "Нет данных о погоде",
@@ -48,45 +47,45 @@ function wthIcon(wthtype, sunrise, sunset)
 		if day then return confdir.."/weather_icons/clear.png"
 		else return confdir.."/weather_icons/clear-night.png" end
 
-	elseif (wthtype == "Полупрозрачная облачность")
-		or (wthtype == "Переменная облачность")
-		or (wthtype == "Облачность с просветами")
-		or (wthtype == "Облачно с прояснениями")
+	elseif (wthtype == "полупрозрачная облачность")
+		or (wthtype == "переменная облачность")
+		or (wthtype == "облачность с просветами")
+		or (wthtype == "облачно с прояснениями")
 		or (wthtype == "слегка облачно")
-		or (wthtype == "Малооблачно") then
+		or (wthtype == "малооблачно") then
 		if day then return confdir.."/weather_icons/clouds.png"
 		else return confdir.."/weather_icons/clouds-night.png" end
 
-	elseif (wthtype == "Облачно")
-		or (wthtype == "Пасмурно")
-		or (wthtype == "Туман") then
+	elseif (wthtype == "облачно")
+		or (wthtype == "пасмурно")
+		or (wthtype == "туман") then
 		return confdir.."/weather_icons/overcast.png"
 
-	elseif (wthtype == "Слабая морось")
-		or (wthtype == "Слабый дождь") then
+	elseif (wthtype == "слабая морось")
+		or (wthtype == "слабый дождь") then
 		return confdir.."/weather_icons/drizzle.png"
 
-	elseif (wthtype == "Небольшой дождь")
-		or (wthtype == "Переменная облачность, небольшой дождь")
-		or (wthtype == "Облачно, небольшой дождь") then
+	elseif (wthtype == "небольшой дождь")
+		or (wthtype == "переменная облачность, небольшой дождь")
+		or (wthtype == "облачно, небольшой дождь") then
 		return confdir.."/weather_icons/rain.png"
 
-	elseif (wthtype == "Дождь")
-		or (wthtype == "Переменная облачность, дождь")
-		or (wthtype == "Облачно, дождь")
-		or (wthtype == "Ливневый дождь") then
+	elseif (wthtype == "дождь")
+		or (wthtype == "переменная облачность, дождь")
+		or (wthtype == "облачно, дождь")
+		or (wthtype == "ливневый дождь") then
 		return confdir.."/weather_icons/shower.png"
 
-	elseif (wthtype == "Гроза")
-		or (wthtype == "Дождь, гроза") then
+	elseif (wthtype == "гроза")
+		or (wthtype == "дождь, гроза") then
 		return confdir.."/weather_icons/storm.png"
 
-	elseif (wthtype == "Небольшой снег")
-		or (wthtype == "Переменная облачность, небольшой снег")
-		or (wthtype == "Облачно, небольшой снег") then
+	elseif (wthtype == "небольшой снег")
+		or (wthtype == "переменная облачность, небольшой снег")
+		or (wthtype == "облачно, небольшой снег") then
 		return confdir.."/weather_icons/light-snow.png"
 
-	elseif (wthtype == "Снег") then
+	elseif (wthtype == "снег") then
 		return confdir.."/weather_icons/snow.png"
 
 	else
@@ -96,7 +95,7 @@ end
 
 -- Just formatting the data a little to display it in a notification
 function wthText(wthtype, rhum,  wind, sunrise, sunset)
-	return wthtype.."\n".. "Влажность: " ..rhum.."%\n".. "Ветер: " .. wind .. " м/с" .. " "  ..  "\n" .. "Восход солнца: " .. sunrise .. "\n" .. "Заход солнца: " .. sunset
+	return "Погода: " .. wthtype.."\n".. "Влажность: " ..rhum.."%\n".. "Ветер: " .. wind .. " м/с" .. " "  ..  "\n" .. "Восход солнца: " .. sunrise .. "\n" .. "Заход солнца: " .. sunset
 end
 
 -- Updating weather data
@@ -136,7 +135,7 @@ function addWeather(widget, city, timeout)
 
 	widget:add_signal("mouse::enter",	function() local w = weatherbase[city]
 													w.wthinfo = naughty.notify({
-														--title = w.weather.cityname,
+														title = w.weather.cityname,
 														text = wthText(w.weather.wthtype, w.weather.rhum, w.weather.wind, w.weather.sunrise, w.weather.sunset),
 														icon = wthIcon(w.weather.wthtype, w.weather.sunrise, w.weather.sunset),
 														timeout = 0,

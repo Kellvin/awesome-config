@@ -6,6 +6,7 @@ local capi = { timer = timer,
 local naughty = require("naughty")
 local awful = require("awful")
 local json = require("json")
+local http = require("socket.http")
 
 module("weather")
 
@@ -16,19 +17,20 @@ local apikey = 'f3c45fb9f8929a96f21a95ca5f470481'
 -- Getting the weather information about the city
 function getWeather(city, apikey)
 
+  result, statuscode, content = http.request('https://api.openweathermap.org/data/2.5/weather?APPID=' .. apikey .. '&q=' .. city .. ',ru&lang=ru&units=metric')
+  local response = json.decode(result)
 
-  local response = json.decode(awful.util.pread("curl connect-timeout 1 -fsm 3 -L 'api.openweathermap.org/data/2.5/weather?APPID=" .. apikey ..  "&q=" .. city .. ",ru&lang=ru&units=metric'")) or ""
+  --local response = json.decode('{"coord":{"lon":30.32,"lat":59.94},"weather":[{"id":802,"main":"Clouds","description":"слегка облачно","icon":"03n"}],"base":"stations","main":{"temp":266.34,"pressure":997,"humidity":85,"temp_min":264.15,"temp_max":267.59},"visibility":10000,"wind":{"speed":2,"deg":200},"clouds":{"all":40},"dt":1551639963,"sys":{"type":1,"id":8926,"message":0.0055,"country":"RU","sunrise":1551588608,"sunset":1551627128},"id":498817,"name":"Saint Petersburg","cod":200}') or ""
   
---  local response = json.decode('{"coord":{"lon":30.32,"lat":59.94},"weather":[{"id":802,"main":"Clouds","description":"слегка облачно","icon":"03n"}],"base":"stations","main":{"temp":266.34,"pressure":997,"humidity":85,"temp_min":264.15,"temp_max":267.59},"visibility":10000,"wind":{"speed":2,"deg":200},"clouds":{"all":40},"dt":1551639963,"sys":{"type":1,"id":8926,"message":0.0055,"country":"RU","sunrise":1551588608,"sunset":1551627128},"id":498817,"name":"Saint Petersburg","cod":200}') or ""
- 
 	weatherbase[city].weather = {
 		["cityname"] = city or "Санкт-Петербург",
 		["wthtype"]	 = response["weather"][1]["description"] or "Нет данных о погоде",
 		["sunrise"]	 = os.date('%H:%M', response["sys"]["sunrise"]) or "00:00",
 		["sunset"]	 = os.date('%H:%M', response["sys"]["sunset"]) or "00:00",
-  	["temp"]	   = response["main"]["temp_min"]  or '<span color="#ff892c"> ! </span>',
-		["rhum"]	   = response["main"]["humidity"] or " Нет данных",
-		["wind"]	   = response["wind"]["speed"] or " Нет данных",
+  	["temp"]	   = response["main"]["temp_min"]  or "!",
+		["rhum"]	   = response["main"]["humidity"] or "0",
+		["wind"]	   = response["wind"]["speed"] or "0",
+		["winddir"]  = response["wind"]["deg"] or "0",
 		}
 end
 

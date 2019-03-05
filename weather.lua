@@ -28,7 +28,7 @@ function getWeather(city, apikey)
 		["wthtype"]	 = response["weather"][1]["description"] or "Нет данных о погоде",
 		["sunrise"]	 = os.date('%H:%M', response["sys"]["sunrise"]) or "00:00",
 		["sunset"]	 = os.date('%H:%M', response["sys"]["sunset"]) or "00:00",
-  	["temp"]	   = response["main"]["temp_min"]  or "!",
+  	["temp"]	   = string.format("%.0f", response["main"]["temp_min"])  or "!",
 		["rhum"]	   = response["main"]["humidity"] or "0",
 		["wind"]	   = response["wind"]["speed"] or "0",
 		["winddir"]  = response["wind"]["deg"] or "0",
@@ -88,7 +88,8 @@ function wthIcon(wthtype, sunrise, sunset)
 		or (wthtype == "облачно, небольшой снег") then
 		return confdir.."/weather_icons/light-snow.png"
 
-	elseif (wthtype == "снег") then
+	elseif (wthtype == "снег") 
+		or (wthtype == "мокрый снег") then
 		return confdir.."/weather_icons/snow.png"
 
 	else

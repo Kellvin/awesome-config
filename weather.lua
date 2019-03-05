@@ -7,6 +7,7 @@ local naughty = require("naughty")
 local awful = require("awful")
 local json = require("json")
 local http = require("socket.http")
+http.TIMEOUT = 1
 
 module("weather")
 

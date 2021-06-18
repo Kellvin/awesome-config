@@ -8,7 +8,7 @@ require("beautiful")
 require("naughty")
 -- require("utility")
 -- Load Debian menu entries
-require("debian.menu")
+-- require("debian.menu")
 require("utility")
 require("weather")
 require("calendar2")
@@ -95,7 +95,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { 
-                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    -- { "Debian", debian.menu.Debian_menu.Debian },
                                     { "Xterm", terminal },
                                     { "Browser", browser },
                                     { "File manager", filemanager },
@@ -413,28 +413,36 @@ awful.rules.rules = {
       properties = { floating = true } },
      { rule = { class = "Deluge" },
       properties = { tag = tags[1][3] } },
+     { rule = { class = "ktorrent" },
+      properties = { tag = tags[1][3] } },
      { rule = { class = "Ktorrent" },
       properties = { tag = tags[1][3] } },
      { rule = { class = "Clementine" },
+      properties = { tag = tags[1][6] } },
+     { rule = { class = "Spotify" },
+      properties = { tag = tags[1][6] } },
+     { rule = { class = "spotify" },
       properties = { tag = tags[1][6] } },
      { rule = { class = "Firefox" },
       properties = { border_width = 0 } },
      { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][4] } },
+     { rule = { class = "thunderbird" },
+      properties = { tag = tags[1][4] } },
      { rule = { class = "Digikam" },
       properties = { tag = tags[1][8] } },
-     { rule = { class = "Psi"},
-      properties = { tag = tags[1][5], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
      { rule = { class = "telegram"},
       properties = { tag = tags[1][5], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
      { rule = { class = "Telegram"},
       properties = { tag = tags[1][5], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
-     { rule = { class = "psi-plus"},
-      properties = { tag = tags[1][5], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
-     { rule = { class = "psi"},
-      properties = { tag = tags[1][5], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add},
+     { rule = { name = "Media viewer" },
+      properties = { floating = true }, callback = awful.titlebar.add  },
      { rule = { class = "Vlc" },
       properties = { tag = tags[1][7] } },
+     { rule = { class = "Spotify" },
+      properties = { tag = tags[1][6], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
+     { rule = { class = "spotify" },
+      properties = { tag = tags[1][6], floating = false, border_width = beautiful.border_width }, callback = awful.titlebar.add },
      { rule = { instance = "plugin-container" },
       properties = { floating = true,
                      focus = yes } },
@@ -516,6 +524,7 @@ autorunApps = --Приложения, которым нужен перезапу
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
    {
     "clementine",
+    "spotify",
     "icedove",
     --"psi-plus",
     "/usr/local/bin/telegram",

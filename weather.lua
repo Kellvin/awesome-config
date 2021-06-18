@@ -85,6 +85,7 @@ function wthIcon(wthtype, sunrise, sunset)
 
 	elseif (wthtype == "небольшой снег")
 		or (wthtype == "переменная облачность, небольшой снег")
+		or (wthtype == "небольшой снегопад")
 		or (wthtype == "облачно, небольшой снег") then
 		return confdir.."/weather_icons/light-snow.png"
 
@@ -113,7 +114,7 @@ function updateWeather(city)
 	end
 
 	if w.wthinfo then
-		w.wthinfo.box.widgets[2].text = wthText(w.weather.wthtype, w.weather.rhum, w.weather.sunrise, w.weather.sunset )
+		w.wthinfo.box.widgets[2].text = wthText(w.weather.wthtype, w.weather.rhum, w.weather.sunrise, w.weather.sunset)
 		w.wthinfo.box.widgets[1].image = capi.image(wthIcon(w.weather.wthtype, w.weather.sunrise, w.weather.sunset))
 	end
 end
